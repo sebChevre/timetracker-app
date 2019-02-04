@@ -37,7 +37,7 @@ jobs:
           key: repo-{{ checksum "pom.xml" }}
 
       # run tests and package
-      - run: mvn package
+      - run: mvn package -X -e
 
       - store_test_results:
           path: target/surefire-reports
