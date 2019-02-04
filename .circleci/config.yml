@@ -26,44 +26,18 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # Uncomment if your build has UI components.
-          #- node-dependency-cache-{{ checksum "node_modules" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          key: repo-{{ checksum "pom.xml" }}
 
-      - run: gradle dependencies
 
-      # run tests and package
-      - run: mvn clean test
-
-      - run:
-          name: Save test results
-          command: |
-            mkdir -p ~/junit/
-            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
-          when: always
-
-      - store_test_results:
-          path: ~/junit
-
-      - store_artifacts:
-          path: ~/junit
-
-      - setup_remote_docker
-
-      - run:
-          name: Build Docker Image
-          command: mvn package -Pprod buildDocker
+      - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+          key: repo-{{ checksum "pom.xml" }}
 
-     # Uncomment if your build has UI components.
-     # - save_cache:
-     #     paths:
-     #       - ~/repo/node_modules
-     #     key: node-dependency-cache-{{ checksum "node_modules" }}
+      # run tests and package
+      - run: mvn package
+
+      - store_test_results:
+        path: target/surefire-reports
