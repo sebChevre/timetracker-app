@@ -41,3 +41,7 @@ jobs:
 
       - store_test_results:
           path: target/surefire-reports
+
+      - store_artifacts: # store the uberjar as an artifact
+            # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+                path: target/timetracker-1.0-SNAPSHOT.jar
