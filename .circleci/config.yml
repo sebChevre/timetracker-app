@@ -14,7 +14,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    working_directory: ~/repo
+    working_directory: ~/timetracker-app
 
     environment:
       # Customize the JVM maximum heap limit
@@ -26,7 +26,7 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          key: repo-{{ checksum "pom.xml" }}
+          key: timetracker-app-{{ checksum "pom.xml" }}
 
 
       - run: mvn dependency:go-offline
@@ -34,7 +34,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: repo-{{ checksum "pom.xml" }}
+          key: timetracker-app-{{ checksum "pom.xml" }}
 
       # run tests and package
       - run: mvn package -X -e
