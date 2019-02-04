@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("periodes")
+@Slf4j
 public class PeriodeController {
 
     @Autowired
@@ -34,6 +35,7 @@ public class PeriodeController {
     public Periode savePeriode(@RequestBody CreerPeriodeCommande commande){
         log.info("SavePeriodeOnctroller, command: {}",commande);
 
+        log.info("CreerPeriodeCommande: {}", commande);
         return periodesService.ouvrirPeriode(commande);
 
     }

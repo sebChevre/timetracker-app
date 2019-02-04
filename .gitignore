@@ -54,6 +54,8 @@ buildNumber.properties
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
+timetracker-app.iml
+
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
