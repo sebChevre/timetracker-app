@@ -6,6 +6,7 @@ import ch.sebooom.timetracker.domaine.command.ClorePeriodeCommande;
 import ch.sebooom.timetracker.domaine.command.CreerPeriodeCommande;
 import ch.sebooom.timetracker.domaine.periode.Periode;
 import ch.sebooom.timetracker.infrastructure.dao.PeriodeDao;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("periodes")
+@Slf4j
 public class PeriodeController {
 
     @Autowired
@@ -31,6 +33,7 @@ public class PeriodeController {
     @PostMapping
     public Periode savePeriode(@RequestBody CreerPeriodeCommande commande){
 
+        log.info("CreerPeriodeCommande: {}", commande);
         return periodesService.ouvrirPeriode(commande);
 
     }
