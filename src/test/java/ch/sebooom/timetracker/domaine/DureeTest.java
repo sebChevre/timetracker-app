@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class DureeTest {
+public class DureeTest {
 
     @Test
     public void test_static_builder () {

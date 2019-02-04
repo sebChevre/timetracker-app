@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
-class PeriodeTest {
+public class PeriodeTest {
 
     @Test
     public void test_builder_instanciation(){
