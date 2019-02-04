@@ -3,15 +3,17 @@ package ch.sebooom.timetracker.domaine.command;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+@ToString
 public class CreerPeriodeCommande {
 
-    private LocalDateTime debut;
-    private LocalDateTime fin;
+    private ZonedDateTime debut;
+    private ZonedDateTime fin;
 
     public CreerPeriodeCommande(){}
 

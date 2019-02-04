@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 public class Duree {
@@ -14,8 +15,8 @@ public class Duree {
 
     Duree(){}
 
-    public static Duree from (LocalDateTime dateDebut, LocalDateTime dateFin){
-
+    public static Duree from (ZonedDateTime dateDebut, ZonedDateTime dateFin){
+        
         checkDatesCoherence(dateDebut,dateFin);
         Duration duration = Duration.between(dateDebut,dateFin);
 
@@ -26,7 +27,7 @@ public class Duree {
         return  duree;
     }
 
-    private static void checkDatesCoherence(LocalDateTime dateDebut, LocalDateTime dateFin){
+    private static void checkDatesCoherence(ZonedDateTime dateDebut, ZonedDateTime dateFin){
 
         //duree < 1h
         Duration d = Duration.between(dateDebut, dateFin);

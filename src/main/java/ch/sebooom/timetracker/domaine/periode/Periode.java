@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * <h2>Classe période. Modélise une période</h2>
@@ -24,9 +26,9 @@ import java.time.LocalDateTime;
 public class Periode {
 
     @NonNull
-    private LocalDateTime dateDebut;
+    private ZonedDateTime dateDebut;
 
-    private LocalDateTime dateFin;
+    private ZonedDateTime dateFin;
 
     private Long id;
 
@@ -34,14 +36,14 @@ public class Periode {
 
 
 
-    public static Periode ouvrirPeriode(LocalDateTime dateDebut){
+    public static Periode ouvrirPeriode(ZonedDateTime dateDebut){
+        log.info("Periode creation dateDebut: {}", dateDebut);
         return new Periode(dateDebut);
     }
 
-    public Periode(LocalDateTime dateDebut){
+    public Periode(ZonedDateTime dateDebut){
 
         this.dateDebut = dateDebut;
-        this.dateFin = resolveDateFin();
         etat = EtatPeriode.OUVERTE;
     }
 
@@ -50,7 +52,7 @@ public class Periode {
         return etat.equals(EtatPeriode.FERME);
     }
 
-    public void complete(LocalDateTime dateFin){
+    public void complete(ZonedDateTime dateFin){
         checkCompleteCoherence(dateFin);
         this.etat = EtatPeriode.FERME;
         this.dateFin = dateFin;
@@ -61,19 +63,19 @@ public class Periode {
         return Duree.from(dateDebut,resolveDateFin());
     }
 
-    public LocalDateTime getDateDebut() {
+    public ZonedDateTime getDateDebut() {
         return dateDebut;
     }
 
-    public LocalDateTime getDateFin() {
+    public ZonedDateTime getDateFin() {
         return dateFin;
     }
 
-    private LocalDateTime resolveDateFin() {
-        return (dateFin == null) ? LocalDateTime.now() : dateFin;
+    private ZonedDateTime resolveDateFin() {
+        return (dateFin == null) ? ZonedDateTime.now() : dateFin;
     }
 
-    private void checkCompleteCoherence(LocalDateTime dateFin){
+    private void checkCompleteCoherence(ZonedDateTime dateFin){
 
         if(etat.equals(EtatPeriode.FERME)){
             throw  new PeriodeBusinessException("Le période est déjà fermée");

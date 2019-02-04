@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Stream;
 
@@ -19,7 +21,7 @@ class DureeTest {
     @Test
     public void test_static_builder () {
 
-        Duree duree = Duree.from(LocalDateTime.now(),LocalDateTime.now().plus(1,ChronoUnit.HOURS));
+        Duree duree = Duree.from( ZonedDateTime.now(),ZonedDateTime.now().plus(1,ChronoUnit.HOURS));
         assertThat(duree).isNotNull();
     }
 
@@ -27,7 +29,7 @@ class DureeTest {
     public void assertThatFinEqualOrGreatherThanOneHours () {
 
         assertThrows(DureeBusinessException.class,()->{
-            Duree duree = Duree.from(LocalDateTime.now(),LocalDateTime.now());
+            Duree duree = Duree.from(ZonedDateTime.now(),ZonedDateTime.now());
         });
 
 
@@ -37,12 +39,12 @@ class DureeTest {
     @MethodSource("createHeureIncrementAndValueExpected")
     public void assertThatHeuresRetourneeAreCorrect (long hIncrement, long heuresRertournees) {
 
-        Duree duree = Duree.from(LocalDateTime.now(),LocalDateTime.now().plus(hIncrement,ChronoUnit.HOURS));
+        Duree duree = Duree.from(ZonedDateTime.now(),ZonedDateTime.now().plus(hIncrement,ChronoUnit.HOURS));
         assertThat(duree.heures()).isEqualTo(heuresRertournees);
 
 
         assertThrows(DureeBusinessException.class,()->{
-            Duree dureeNegative = Duree.from(LocalDateTime.now(),LocalDateTime.now().minus(1,ChronoUnit.HOURS));
+            Duree dureeNegative = Duree.from(ZonedDateTime.now(),ZonedDateTime.now().minus(1,ChronoUnit.HOURS));
             assertFalse(true);
         });
 
@@ -69,15 +71,15 @@ class DureeTest {
     public void assertThatMinutesRetourneeAreCorrect (long mIncrement, long minutesRertournees) {
 
 
-        LocalDateTime uneHeurePlsTard = LocalDateTime.now().plus(mIncrement,ChronoUnit.MINUTES);
+        ZonedDateTime uneHeurePlsTard = ZonedDateTime.of(LocalDateTime.now().plus(mIncrement,ChronoUnit.MINUTES), ZoneId.systemDefault());
 
-        Duree duree = Duree.from(LocalDateTime.now(),uneHeurePlsTard);
+        Duree duree = Duree.from(ZonedDateTime.now(),uneHeurePlsTard);
 
         assertThat(duree.minutes()).isEqualTo(minutesRertournees);
 
 
         assertThrows(DureeBusinessException.class,()->{
-            Duree dureeNegative = Duree.from(LocalDateTime.now(),LocalDateTime.now().minus(1,ChronoUnit.HOURS));
+            Duree dureeNegative = Duree.from(ZonedDateTime.now(),ZonedDateTime.now().minus(1,ChronoUnit.HOURS));
             assertFalse(true);
         });
 

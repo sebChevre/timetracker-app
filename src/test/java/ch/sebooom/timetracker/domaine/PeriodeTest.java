@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Stream;
 
@@ -26,7 +28,7 @@ class PeriodeTest {
     @Test
     public void test_builder_instanciation(){
 
-        Periode periode = Periode.ouvrirPeriode(LocalDateTime.now());
+        Periode periode = Periode.ouvrirPeriode(ZonedDateTime.now());
 
         assertThat(periode).isNotNull();
         assertThat(periode).isNotNull();
@@ -36,7 +38,7 @@ class PeriodeTest {
     @Test
     public void when_no_dateFin_then_dateNowIsUsed(){
 
-        LocalDateTime debut = LocalDateTime.now().minus(2,ChronoUnit.HOURS);
+        ZonedDateTime debut = ZonedDateTime.now().minus(2,ChronoUnit.HOURS);
         Periode periode = Periode.ouvrirPeriode(debut);
         assertThat(periode).isNotNull();
         assertThat(periode.isFerme()).isFalse();
@@ -50,8 +52,8 @@ class PeriodeTest {
     @Test
     public void when_dateFin_setted_then_dateFinIsUsed(){
 
-        LocalDateTime debut = LocalDateTime.of(2000,12,12,10,10);
-        LocalDateTime fin = LocalDateTime.of(2000,12,12,18,10);
+        ZonedDateTime debut = ZonedDateTime.of(LocalDateTime.of(2000,12,12,10,10), ZoneId.systemDefault());
+        ZonedDateTime fin = ZonedDateTime.of(LocalDateTime.of(2000,12,12,18,10),ZoneId.systemDefault());
 
         Periode periode = Periode.ouvrirPeriode(debut);
         periode.complete(fin);
@@ -68,8 +70,8 @@ class PeriodeTest {
     @Test
     public void ensure_that_no_dateFin_less_1h_is_not_possible(){
 
-        LocalDateTime debut = LocalDateTime.of(2000,12,12,10,10);
-        final LocalDateTime fin = LocalDateTime.of(2000,12,12,10,20);
+        ZonedDateTime debut = ZonedDateTime.of(LocalDateTime.of(2000,12,12,10,10), ZoneId.systemDefault());
+        final ZonedDateTime fin = ZonedDateTime.of(LocalDateTime.of(2000,12,12,10,20),ZoneId.systemDefault());
 
         Periode periode = Periode.ouvrirPeriode(debut);
 
@@ -79,7 +81,7 @@ class PeriodeTest {
 
         assertThat(periode.isFerme()).isFalse();
 
-        final LocalDateTime fin2 = LocalDateTime.of(2000,12,12,11,20);
+        final ZonedDateTime fin2 = ZonedDateTime.of(LocalDateTime.of(2000,12,12,11,20),ZoneId.systemDefault());
         periode.complete(fin2);
         assertThat(periode.isFerme()).isTrue();
 
@@ -92,9 +94,9 @@ class PeriodeTest {
     public void assertThatDureeRetourneeAreCorrect (long mIncrement, long heuresRetounees, long minutesRertournees) {
 
 
-        LocalDateTime dateFin = LocalDateTime.now().plus(mIncrement,ChronoUnit.MINUTES);
+        ZonedDateTime dateFin = ZonedDateTime.now().plus(mIncrement,ChronoUnit.MINUTES);
 
-        Periode periode = Periode.ouvrirPeriode(LocalDateTime.now());
+        Periode periode = Periode.ouvrirPeriode(ZonedDateTime.now());
         periode.complete(dateFin);
 
         assertThat(periode.getDuree().minutes()).isEqualTo(minutesRertournees);
@@ -102,7 +104,7 @@ class PeriodeTest {
 
 
         assertThrows(DureeBusinessException.class,()->{
-            Duree dureeNegative = Duree.from(LocalDateTime.now(),LocalDateTime.now().minus(1,ChronoUnit.HOURS));
+            Duree dureeNegative = Duree.from(ZonedDateTime.now(),ZonedDateTime.now().minus(1,ChronoUnit.HOURS));
             assertFalse(true);
         });
 

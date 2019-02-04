@@ -3,6 +3,8 @@ package ch.sebooom.timetracker.generator;
 import ch.sebooom.timetracker.domaine.periode.Periode;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Random;
 
 public class PeriodesGenerator {
@@ -14,10 +16,10 @@ public class PeriodesGenerator {
 
     }
 
-    private LocalDateTime generateFakeDate () {
-        return LocalDateTime.of(
+    private ZonedDateTime generateFakeDate () {
+        return ZonedDateTime.of(LocalDateTime.of(
                 getRandomYear(),getRandomMonth(),getRandomDay(),
-                getRandomHours(),getRandomMinutes());
+                getRandomHours(),getRandomMinutes()), ZoneId.systemDefault());
     }
 
     private int getRandomYear(){

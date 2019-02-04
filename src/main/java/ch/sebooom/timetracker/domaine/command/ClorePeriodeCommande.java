@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
 public class ClorePeriodeCommande {
 
-    private LocalDateTime fin;
+    private ZonedDateTime fin;
 
     private Long periodeId;
 

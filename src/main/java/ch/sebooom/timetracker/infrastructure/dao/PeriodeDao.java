@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -19,14 +20,14 @@ public class PeriodeDao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private ZonedDateTime dateDebut;
+    private ZonedDateTime dateFin;
     private EtatPeriode etat;
 
 
     public PeriodeDao () {}
 
-    private PeriodeDao(Long id,LocalDateTime dateDebut, LocalDateTime dateFin, EtatPeriode etat) {
+    private PeriodeDao(Long id,ZonedDateTime dateDebut, ZonedDateTime dateFin, EtatPeriode etat) {
         this.id = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
