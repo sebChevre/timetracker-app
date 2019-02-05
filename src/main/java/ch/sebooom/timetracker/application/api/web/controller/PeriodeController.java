@@ -33,8 +33,6 @@ public class PeriodeController {
     @CrossOrigin
     @PostMapping
     public Periode savePeriode(@RequestBody CreerPeriodeCommande commande){
-        log.info("SavePeriodeOnctroller, command: {}",commande);
-
         log.info("CreerPeriodeCommande: {}", commande);
         return periodesService.ouvrirPeriode(commande);
 

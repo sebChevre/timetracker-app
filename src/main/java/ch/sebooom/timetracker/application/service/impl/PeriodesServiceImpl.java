@@ -8,6 +8,7 @@ import ch.sebooom.timetracker.domaine.periode.PeriodeDomaineRepository;
 import ch.sebooom.timetracker.domaine.periode.PeriodesDomaineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class PeriodesServiceImpl implements PeriodesService {
         return periodeDomaineRepository.chargerPeriodes();
     }
 
+    @Transactional
     @Override
     public Periode ouvrirPeriode(CreerPeriodeCommande commande) {
 
@@ -35,6 +37,7 @@ public class PeriodesServiceImpl implements PeriodesService {
 
     }
 
+    @Transactional
     @Override
     public Periode fermerPeriode(ClorePeriodeCommande commande) {
         PeriodesDomaineService periodesDomaineService = new PeriodesDomaineService(periodeDomaineRepository);

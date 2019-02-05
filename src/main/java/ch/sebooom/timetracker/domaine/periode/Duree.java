@@ -32,9 +32,9 @@ public class Duree {
         //duree < 1h
         Duration d = Duration.between(dateDebut, dateFin);
 
-        if(d.toHours() < 1){
-            throw  new DureeBusinessException("Date fin doit etre plus avance de 1h que date debut");
-        }
+        //if(d.toHours() < 1){
+         //   throw  new DureeBusinessException("Date fin doit etre plus avance de 1h que date debut");
+       // }
 
     }
 
